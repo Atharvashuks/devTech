@@ -1,9 +1,9 @@
 export const getUserQuery = `
 query MyQuery($email:String!) {
   user(email:$email){
+    id
     username
     email
-    id
   }
 }`;
 

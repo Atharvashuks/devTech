@@ -49,7 +49,7 @@ export interface SessionInterface extends Session {
     id: string;
     name: string;
     email: string;
-    avatarUrl: string;
+    imageUrl: string;
   };
 }
 
