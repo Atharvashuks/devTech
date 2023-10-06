@@ -55,9 +55,9 @@ export interface SessionInterface extends Session {
 
 export interface ProjectForm {
   title: string;
-  description: string;
+  desc: string;
   image: string;
-  liveSiteUrl: string;
-  githubUrl: string;
+  liveURL: string;
+  githubURL: string;
   category: string;
 }

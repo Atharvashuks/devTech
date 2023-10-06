@@ -12,7 +12,7 @@ const CreateProject = async () => {
   return (
     <Modal>
       <h3 className="modal-head-text">Add a Project</h3>
-      <ProjectForm type="create" session={session} />
+      <ProjectForm type="add" session={session} />
     </Modal>
   );
 };

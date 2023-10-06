@@ -10,9 +10,9 @@ const ProjectSchema = new Schema({
   liveURL: {
     type: String,
   },
-  github: String,
+  githubURL: String,
   caterogy: {
-    type: [String],
+    type: String,
   },
   createdBy: {
     type: Schema.Types.ObjectId,

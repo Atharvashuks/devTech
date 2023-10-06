@@ -19,6 +19,7 @@ export const ProjectType = new GraphQLObjectType({
     title: { type: GraphQLString },
     desc: { type: GraphQLString },
     githubURL: { type: GraphQLString },
+    liveURL: { type: GraphQLString },
     createdBy: {
       type: UserType,
       resolve(parent: { createdBy: any }, args: any) {

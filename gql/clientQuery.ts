@@ -17,3 +17,29 @@ mutation addUser($username:String! $email:String!, $desc:String!) {
   }
 }
 `;
+
+export const addProjectMutation = `
+mutation addProject($title:String!,$image:String!,$desc:String!,$liveURL:String!,$githubURL:String!,$category:String!,$createdBy:ID!){
+  addProject(title:$title,image:$image,desc:$desc,liveURL:$liveURL,githubURL:$githubURL,category:$category,createdBy:$createdBy){
+    id
+    title
+    desc
+    createdBy{
+      username
+    }
+  }
+}`;
+
+// export const addProjectMutation = `
+// mutation addProject($input: ProjectCreateInput!){
+//   addProject(input:$input){
+//     id
+//     title
+//     image
+//     desc
+//     createdBy {
+// 					email
+// 					name
+// 				}
+//   }
+// }`;
