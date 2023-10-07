@@ -5,6 +5,7 @@ import { ProjectInterface } from "@/common.types";
 import { getIndividualProject } from "@/config/action";
 import { getCurrentUser } from "@/config/session";
 import Modal from "@/components/Modal";
+import RelatedProjects from "@/components/RelatedProjects";
 
 const Projects = async ({ params: { id } }: { params: { id: string } }) => {
   const session = await getCurrentUser();
@@ -14,16 +15,19 @@ const Projects = async ({ params: { id } }: { params: { id: string } }) => {
     <p>Failed to fetch projects!!</p>;
   }
 
+  const projectData = result?.getProject;
+
+  console.log("i am user if deor main page", projectData?.createdBy?.id);
+
   const renderLink = () => `/profile/${result?.createdBy?.id}`;
 
-  console.log("dara OGB VCJBN ERJHGHI I GHG SFG RES", result?.getProject.image);
   return (
     <Modal>
       <section className="flexBetween gap-y-8 max-w-4xl max-xs:flex-col w-full">
         <div className="flex-1 flex items-start gap-5 w-full max-xs:flex-col">
           <Link href={renderLink()}>
             <Image
-              src={result?.getProject?.createdBy?.desc}
+              src={projectData?.createdBy?.desc}
               width={50}
               height={50}
               alt="profile"
@@ -33,18 +37,18 @@ const Projects = async ({ params: { id } }: { params: { id: string } }) => {
 
           <div className="flex-1 flexStart flex-col gap-1">
             <p className="self-start text-lg font-semibold">
-              {result?.getProject?.title}
+              {projectData?.title}
             </p>
             <div className="user-info">
               <Link href={renderLink()}>
-                {result?.getProject?.createdBy?.username}
+                {projectData?.createdBy?.username}
               </Link>
               <Image src="/dot.svg" width={4} height={4} alt="dot" />
               <Link
-                href={`/?category=${result?.getProject.category}`}
+                href={`/?category=${projectData?.category}`}
                 className="text-primary-purple font-semibold"
               >
-                {result?.getProject?.category}
+                {projectData?.category}
               </Link>
             </div>
           </div>
@@ -53,7 +57,7 @@ const Projects = async ({ params: { id } }: { params: { id: string } }) => {
 
       <section className="mt-14">
         <Image
-          src={`${result?.getProject?.image}`}
+          src={`${projectData?.image}`}
           className="object-cover rounded-2xl"
           width={1064}
           height={798}
@@ -62,13 +66,11 @@ const Projects = async ({ params: { id } }: { params: { id: string } }) => {
       </section>
 
       <section className="flexCenter flex-col mt-20">
-        <p className="max-w-5xl text-xl font-normal">
-          {result?.getProject?.desc}
-        </p>
+        <p className="max-w-5xl text-xl font-normal">{projectData?.desc}</p>
 
         <div className="flex flex-wrap mt-5 gap-5">
           <Link
-            href={result?.getProject?.githubURL}
+            href={projectData?.githubURL}
             target="_blank"
             rel="noreferrer"
             className="flexCenter gap-2 tex-sm font-medium text-primary-purple"
@@ -77,7 +79,7 @@ const Projects = async ({ params: { id } }: { params: { id: string } }) => {
           </Link>
           <Image src="/dot.svg" width={4} height={4} alt="dot" />
           <Link
-            href={result?.getProject?.liveURL}
+            href={projectData?.liveURL}
             target="_blank"
             rel="noreferrer"
             className="flexCenter gap-2 tex-sm font-medium text-primary-purple"
@@ -91,7 +93,7 @@ const Projects = async ({ params: { id } }: { params: { id: string } }) => {
         <span className="w-full h-0.5 bg-light-white-200" />
         <Link href={renderLink()} className="min-w-[82px] h-[82px]">
           <Image
-            src={result?.getProject?.createdBy?.desc}
+            src={projectData?.createdBy?.desc}
             className="rounded-full"
             width={82}
             height={82}
@@ -100,6 +102,10 @@ const Projects = async ({ params: { id } }: { params: { id: string } }) => {
         </Link>
         <span className="w-full h-0.5 bg-light-white-200" />
       </section>
+      <RelatedProjects
+        userId={projectData?.createdBy?.id}
+        projectId={projectData?.id}
+      />
     </Modal>
   );
 };

@@ -87,7 +87,15 @@ export const mutation = new GraphQLObjectType({
           createdBy: args.createdBy,
         });
 
-        return project.save();
+        return project.save().then((savedProject: { _id: any }) => {
+          return User.findByIdAndUpdate(
+            args.createdBy,
+            { $push: { projects: savedProject._id } },
+            { new: true }
+          )
+            .populate("projects")
+            .exec();
+        });
       },
     },
   },

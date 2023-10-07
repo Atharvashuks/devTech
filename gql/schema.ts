@@ -1,8 +1,18 @@
+import Project from "@/models/project";
 import User from "@/models/user";
-import { GraphQLObjectType, GraphQLID, GraphQLString } from "graphql";
+import {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLString,
+  GraphQLList,
+} from "graphql";
 
+// @ts-nocheck
+// @ts-ignore
 export const UserType = new GraphQLObjectType({
   name: "User",
+  // @ts-nocheck
+  // @ts-ignore
   fields: () => ({
     id: { type: GraphQLID },
     username: { type: GraphQLString },
@@ -10,9 +20,14 @@ export const UserType = new GraphQLObjectType({
     desc: { type: GraphQLString },
     githubURL: { type: GraphQLString },
     linkedInURL: { type: GraphQLString },
+    projects: {
+      type: new GraphQLList(ProjectType),
+    },
   }),
 });
 
+// @ts-nocheck
+// @ts-ignore
 export const ProjectType = new GraphQLObjectType({
   name: "Project",
   fields: () => ({

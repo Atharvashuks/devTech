@@ -66,3 +66,16 @@ query getAllProjects($category:String) {
     }
   }
 }`;
+
+export const getUserProjectQuery = `
+query getUserProject($id:ID,$last:Int) {
+  getUserProject(id:$id,last:$last){
+    id
+    title
+    desc
+    image
+    liveURL
+    githubURL
+  }
+}
+`;

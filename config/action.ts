@@ -4,6 +4,7 @@ import {
   createUserMutation,
   getProjectQuery,
   getSingleProjectQuery,
+  getUserProjectQuery,
   getUserQuery,
 } from "@/gql/clientQuery";
 import { connectToDB } from "@/utils/database";
@@ -104,4 +105,14 @@ export const getAllProjects = async (category?: string, endcursor?: string) => {
 export const getIndividualProject = (id: string) => {
   client.setHeader("x-api-key", apikey);
   return makeGraphQLRequest(getSingleProjectQuery, { id });
+};
+
+export const getUserProject = (id: string, last?: number) => {
+  client.setHeader("x-api-key", apikey);
+
+  const variables = {
+    id,
+    last,
+  };
+  return makeGraphQLRequest(getUserProjectQuery, variables);
 };
