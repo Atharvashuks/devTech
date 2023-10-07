@@ -32,7 +32,7 @@ export const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(ProjectType),
       args: { category: { type: GraphQLString } },
       resolve(parent: any, args: any) {
-        return Project.find({ category: args.category });
+        return Project.find();
       },
     },
 

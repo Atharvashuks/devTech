@@ -14,7 +14,8 @@ query getProject($id:ID!) {
     title
     desc
     image
-    category
+    liveURL
+    githubURL
     createdBy{
       id
       username
@@ -55,6 +56,8 @@ query getAllProjects($category:String) {
     title
     desc
     image
+    liveURL
+    githubURL
     createdBy{
       id
       username

@@ -10,8 +10,11 @@ export type FormState = {
 };
 
 export interface ProjectInterface {
+  getProject: any;
+  liveURL: any;
+  githubURL: any;
+  category: any;
   getAllProjects: any;
-  map: any;
   title: string;
   desc: string;
   image: string;
