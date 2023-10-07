@@ -7,6 +7,23 @@ query MyQuery($email:String!) {
   }
 }`;
 
+export const getSingleProjectQuery = `
+query getProject($id:ID!) {
+  getProject(id:$id){
+    id
+    title
+    desc
+    image
+    category
+    createdBy{
+      id
+      username
+      email
+      desc
+    }
+  }
+}`;
+
 export const createUserMutation = `
 mutation addUser($username:String! $email:String!, $desc:String!) {
   addUser(username:$username, email:$email, desc:$desc){
@@ -19,27 +36,30 @@ mutation addUser($username:String! $email:String!, $desc:String!) {
 `;
 
 export const addProjectMutation = `
-mutation addProject($title:String!,$image:String!,$desc:String!,$liveURL:String!,$githubURL:String!,$category:String!,$createdBy:ID!){
-  addProject(title:$title,image:$image,desc:$desc,liveURL:$liveURL,githubURL:$githubURL,category:$category,createdBy:$createdBy){
+mutation addProject($category:String!,$title:String!,$image:String!,$desc:String!,$liveURL:String!,$githubURL:String!,$createdBy:ID!){
+  addProject(category:$category,title:$title,image:$image,desc:$desc,liveURL:$liveURL,githubURL:$githubURL,createdBy:$createdBy){
     id
     title
     desc
+    category
     createdBy{
       username
     }
   }
 }`;
 
-// export const addProjectMutation = `
-// mutation addProject($input: ProjectCreateInput!){
-//   addProject(input:$input){
-//     id
-//     title
-//     image
-//     desc
-//     createdBy {
-// 					email
-// 					name
-// 				}
-//   }
-// }`;
+export const getProjectQuery = `
+query getAllProjects($category:String) {
+  getAllProjects(category:$category){
+    id
+    title
+    desc
+    image
+    createdBy{
+      id
+      username
+      email
+      desc
+    }
+  }
+}`;

@@ -39,7 +39,7 @@ const ProjectForm = ({ type, session }: Props) => {
     try {
       if (type === "add") {
         await addnewProject(form, session?.user?.id, token);
-        router.push("/profile");
+        // router.push("/profile");
       }
     } catch (error) {
       console.log(error);
@@ -109,14 +109,14 @@ const ProjectForm = ({ type, session }: Props) => {
         isTextAres={false}
       />
       <FormField
-        title="url"
+        title="Deployed url"
         state={form.liveURL}
         placeholder="http://yourprojectdeployedurl.com"
         setState={(value) => handleStateChange("liveURL", value)}
         isTextAres={false}
       />
       <FormField
-        title="url"
+        title="Github url"
         state={form.githubURL}
         placeholder="https://github.com/yourprojectsourcecodeurl"
         setState={(value) => handleStateChange("githubURL", value)}

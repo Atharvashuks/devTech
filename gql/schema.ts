@@ -1,3 +1,4 @@
+import User from "@/models/user";
 import { GraphQLObjectType, GraphQLID, GraphQLString } from "graphql";
 
 export const UserType = new GraphQLObjectType({
@@ -20,10 +21,12 @@ export const ProjectType = new GraphQLObjectType({
     desc: { type: GraphQLString },
     githubURL: { type: GraphQLString },
     liveURL: { type: GraphQLString },
+    image: { type: GraphQLString },
+    category: { type: GraphQLString },
     createdBy: {
       type: UserType,
       resolve(parent: { createdBy: any }, args: any) {
-        return null;
+        return User.findById(parent.createdBy);
       },
     },
   }),

@@ -2,6 +2,8 @@ import { ProjectForm } from "@/common.types";
 import {
   addProjectMutation,
   createUserMutation,
+  getProjectQuery,
+  getSingleProjectQuery,
   getUserQuery,
 } from "@/gql/clientQuery";
 import { connectToDB } from "@/utils/database";
@@ -31,6 +33,8 @@ export const fetchToken = async () => {
 };
 
 const makeGraphQLRequest = async (query: string, variables = {}) => {
+  await connectToDB();
+
   try {
     return await client.request(query, variables);
   } catch (error) {
@@ -40,8 +44,7 @@ const makeGraphQLRequest = async (query: string, variables = {}) => {
 
 export const getUser = (email: string) => {
   client.setHeader("x-api-key", apikey);
-  console.log("ACTION,email", email);
-  return makeGraphQLRequest(getUserQuery, { email }); // TODO: add error handling here!
+  return makeGraphQLRequest(getUserQuery, { email });
 };
 
 export const createUser = (name: string, email: string, desc: string) => {
@@ -75,8 +78,6 @@ export const addnewProject = async (
 ) => {
   const imageURL = await uploadImage(form.image);
 
-  console.log("i am image url", imageURL.url);
-
   if (imageURL.url) {
     client.setHeader("Authorization", `Bearer ${token}`);
 
@@ -88,4 +89,19 @@ export const addnewProject = async (
 
     return makeGraphQLRequest(addProjectMutation, variables);
   }
+};
+
+export const getAllProjects = async (category?: string, endcursor?: string) => {
+  client.setHeader("x-api-key", apikey);
+  const variables = {
+    category,
+    endcursor,
+  };
+
+  return makeGraphQLRequest(getProjectQuery, variables);
+};
+
+export const getIndividualProject = (id: string) => {
+  client.setHeader("x-api-key", apikey);
+  return makeGraphQLRequest(getSingleProjectQuery, { id });
 };

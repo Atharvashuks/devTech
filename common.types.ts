@@ -10,17 +10,17 @@ export type FormState = {
 };
 
 export interface ProjectInterface {
+  getAllProjects: any;
+  map: any;
   title: string;
-  description: string;
+  desc: string;
   image: string;
-  liveSiteUrl: string;
-  githubUrl: string;
-  category: string;
+
   id: string;
   createdBy: {
-    name: string;
+    desc: string;
+    username: string;
     email: string;
-    avatarUrl: string;
     id: string;
   };
 }

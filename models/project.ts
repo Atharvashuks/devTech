@@ -11,9 +11,7 @@ const ProjectSchema = new Schema({
     type: String,
   },
   githubURL: String,
-  caterogy: {
-    type: String,
-  },
+  category: String,
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: "User",
