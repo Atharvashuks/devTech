@@ -98,5 +98,64 @@ export const mutation = new GraphQLObjectType({
         });
       },
     },
+
+    editProject: {
+      type: ProjectType,
+      args: {
+        title: { type: GraphQLString },
+        image: { type: GraphQLString },
+        desc: { type: GraphQLString },
+        liveURL: { type: GraphQLString },
+        githubURL: { type: GraphQLString },
+        category: { type: GraphQLString },
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve(
+        parent: any,
+        args: {
+          title: any;
+          image: any;
+          desc: any;
+          liveURL: any;
+          githubURL: any;
+          category: any;
+          id: any;
+        }
+      ) {
+        const project = {
+          title: args.title,
+          image: args.image,
+          desc: args.desc,
+          liveURL: args.liveURL,
+          githubURL: args.githubURL,
+          category: args.category,
+        };
+
+        console.log("i am in eit reslver", project);
+
+        return Project.findOneAndUpdate(
+          { _id: args.id },
+          {
+            title: args.title,
+            image: args.image,
+            desc: args.desc,
+            liveURL: args.liveURL,
+            githubURL: args.githubURL,
+            category: args.category,
+          },
+          {
+            new: true,
+          }
+        );
+      },
+    },
+
+    deleteProject: {
+      type: ProjectType,
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parent: any, args: { id: typeof GraphQLID }) {
+        return Project.findByIdAndRemove(args.id);
+      },
+    },
   },
 });

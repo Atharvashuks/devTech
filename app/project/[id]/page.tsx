@@ -6,13 +6,14 @@ import { getIndividualProject } from "@/config/action";
 import { getCurrentUser } from "@/config/session";
 import Modal from "@/components/Modal";
 import RelatedProjects from "@/components/RelatedProjects";
+import ProjectActions from "@/components/ProjectAction";
 
 const Projects = async ({ params: { id } }: { params: { id: string } }) => {
   const session = await getCurrentUser();
   const result = (await getIndividualProject(id)) as ProjectInterface;
 
   if (!result) {
-    <p>Failed to fetch projects!!</p>;
+    <p>Failed to fetch project!!</p>;
   }
 
   const projectData = result?.getProject;
@@ -53,6 +54,12 @@ const Projects = async ({ params: { id } }: { params: { id: string } }) => {
             </div>
           </div>
         </div>
+
+        {session?.user?.email === projectData?.createdBy?.email && (
+          <div className="flex justify-end items-center gap-2">
+            <ProjectActions projectId={projectData?.id} />
+          </div>
+        )}
       </section>
 
       <section className="mt-14">

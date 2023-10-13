@@ -10,16 +10,14 @@ export type FormState = {
 };
 
 export interface ProjectInterface {
-  getProject: any;
-  liveURL: any;
-  githubURL: any;
-  category: any;
-  getAllProjects: any;
-  title: string;
-  desc: string;
-  image: string;
-
   id: string;
+  githubURL: string;
+  liveURL: string;
+  desc: string;
+  title: string;
+  image: string;
+  category: string;
+  getProject: any;
   createdBy: {
     desc: string;
     username: string;
@@ -29,6 +27,8 @@ export interface ProjectInterface {
 }
 
 export interface UserProfile {
+  createdBy: any;
+  getUserProject: any;
   id: string;
   name: string;
   email: string;
@@ -56,7 +56,7 @@ export interface SessionInterface extends Session {
   };
 }
 
-export interface ProjectForm {
+export interface CreatePorjectForm {
   title: string;
   desc: string;
   image: string;

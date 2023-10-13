@@ -27,7 +27,7 @@ const Button = ({
       type={type || "button"}
       disabled={isSubmitting}
       className={`flexCenter gap-3 px-4 py-3 ${
-        isSubmitting ? "bg-black/50" : bgColor || "bg-primary-green"
+        isSubmitting ? "bg-primary-green" : bgColor || "bg-pimary-color"
       } rounded-xl text-sm font-medium max-md:w-full ${
         textColor || "text-white"
       }`}

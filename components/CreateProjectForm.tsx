@@ -3,27 +3,28 @@
 import Image from "next/image";
 import React from "react";
 
-import { SessionInterface } from "@/common.types";
+import { ProjectInterface, SessionInterface } from "@/common.types";
 import FormField from "./FormField";
 import { categoryFilters } from "@/constants";
 import CustomMenu from "./CustomMenu";
 import Button from "./Button";
-import { addnewProject, fetchToken } from "@/config/action";
+import { EditProject, addnewProject, fetchToken } from "@/config/action";
 import { useRouter } from "next/navigation";
 
 type Props = {
   type: string;
   session: SessionInterface;
+  project: ProjectInterface;
 };
 
-const ProjectForm = ({ type, session }: Props) => {
+const CreatePorjectForm = ({ type, session, project }: Props) => {
   const [form, setform] = React.useState({
-    image: "",
-    title: "",
-    desc: "",
-    liveURL: "",
-    githubURL: "",
-    category: "",
+    image: project?.image || "",
+    title: project?.title || "",
+    desc: project?.desc || "",
+    liveURL: project?.liveURL || "",
+    githubURL: project?.githubURL || "",
+    category: project?.category || "",
   });
 
   const router = useRouter();
@@ -39,7 +40,12 @@ const ProjectForm = ({ type, session }: Props) => {
     try {
       if (type === "add") {
         await addnewProject(form, session?.user?.id, token);
-        // router.push("/profile");
+        router.push("/");
+      }
+
+      if (type === "edit") {
+        await EditProject(form, project?.id, token);
+        router.push("/");
       }
     } catch (error) {
       console.log(error);
@@ -146,4 +152,4 @@ const ProjectForm = ({ type, session }: Props) => {
   );
 };
 
-export default ProjectForm;
+export default CreatePorjectForm;

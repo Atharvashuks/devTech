@@ -44,5 +44,6 @@ export const ProjectType = new GraphQLObjectType({
         return User.findById(parent.createdBy);
       },
     },
+    createdAt: { type: GraphQLString },
   }),
 });

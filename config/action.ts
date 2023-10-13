@@ -1,12 +1,15 @@
-import { ProjectForm } from "@/common.types";
+import { CreatePorjectForm } from "@/common.types";
 import {
   addProjectMutation,
   createUserMutation,
+  deleteProjectMutation,
+  editProjectMutation,
   getProjectQuery,
   getSingleProjectQuery,
   getUserProjectQuery,
   getUserQuery,
 } from "@/gql/clientQuery";
+
 import { connectToDB } from "@/utils/database";
 import { GraphQLClient } from "graphql-request";
 
@@ -73,7 +76,7 @@ export const uploadImage = async (imagePath: string) => {
 };
 
 export const addnewProject = async (
-  form: ProjectForm,
+  form: CreatePorjectForm,
   creatorId: string,
   token: string
 ) => {
@@ -115,4 +118,39 @@ export const getUserProject = (id: string, last?: number) => {
     last,
   };
   return makeGraphQLRequest(getUserProjectQuery, variables);
+};
+
+export const deleteProject = async (id: string, token: string) => {
+  client.setHeader("Authorization", `Bearer ${token}`);
+
+  return makeGraphQLRequest(deleteProjectMutation, { id });
+};
+
+export const EditProject = async (
+  form: CreatePorjectForm,
+  id: string,
+  token: string
+) => {
+  function isBase64URL(value: string) {
+    const base64RegX = /^data.image\/[a-z]+;base64,/;
+    return base64RegX.test(value);
+  }
+
+  let variables = { ...form };
+  const isnewImgUpload = isBase64URL(form.image);
+
+  // if (isnewImgUpload) {
+  const imageURL = await uploadImage(form.image);
+
+  if (imageURL.url) {
+    client.setHeader("Authorization", `Bearer ${token}`);
+
+    variables = {
+      ...form,
+      image: imageURL.url,
+    };
+
+    return makeGraphQLRequest(editProjectMutation, { id, variables });
+    // }
+  }
 };

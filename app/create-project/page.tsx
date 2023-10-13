@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
 import Modal from "@/components/Modal";
-import ProjectForm from "@/components/ProjectForm";
 import { getCurrentUser } from "@/config/session";
+import CreatePorjectForm from "@/components/CreateProjectForm";
 
 const CreateProject = async () => {
   const session = await getCurrentUser();
@@ -12,7 +12,7 @@ const CreateProject = async () => {
   return (
     <Modal>
       <h3 className="modal-head-text">Add a Project</h3>
-      <ProjectForm type="add" session={session} />
+      <CreatePorjectForm type="add" session={session} />
     </Modal>
   );
 };
